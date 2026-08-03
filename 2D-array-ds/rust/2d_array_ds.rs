@@ -1,27 +1,15 @@
-// Reversing 2D arrays using Rust safefly 
+pub fn hourglass_sum(arr: &[Vec<i32>]) -> i32 {
+    let mut max_sum = i32::MIN;
 
-
-pub fn reverse_2d_array(arr: &mut Vec<Vec<i32>>){
-    let mut new_arr = arr.clone();
-    for row in new_arr.iter_mut(){
-        row.reverse();
+    for i in 0..4 {
+        for j in 0..4 {
+            let current_sum = arr[i][j] + arr[i][j+1] + arr[i][j+2] +
+                              arr[i+1][j+1] +
+                              arr[i+2][j] + arr[i+2][j+1] + arr[i+2][j+2];
+                              
+            max_sum = max_sum.max(current_sum);
+        }
     }
-    *arr = new_arr;
-}
-
-// Reversing 2D arrays using Rust and pointers from different memory locations
-pub fn reverse_2d_array_pointer(arr: &mut Vec<Vec<i32>>){
-    let mut new_arr = arr.clone();
-    for row in new_arr.iter_mut(){
-        row.reverse();
-    }
-    *arr = new_arr;
-}
-
-// Reversing 2D complex Arrays using Rust
-
-pub fn reverse_2d_complex_array(arr: &mut Vec<Vec<i32>>){
-    let mut new = arr.clone();
-    new.reverse();
-    *arr = new;
+    
+    max_sum
 }
